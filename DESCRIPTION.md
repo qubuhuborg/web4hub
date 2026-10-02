@@ -3,7 +3,7 @@ Type: Package
 Title: Animal Activity Statistics
 Version: 1.3.4
 Author: Marcus Rowcliffe
-Maintainer: Marcus Rowcliffe <marcus.rowcliffe@ioz.ac.uk>
+Maintainer: Marcus Rowcliffe <ioz.ac.uk>
 Description: Provides functions to express clock time data relative to 
     anchor points (typically solar); fit kernel density functions to animal 
     activity time data; plot activity distributions; quantify overall 
