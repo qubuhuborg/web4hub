@@ -1,0 +1,70 @@
+## MEMORIES
+
+### Work Context
+#### projects
+1. Full-stack builder working across AI, data, and software projects
+2. Focus areas include personalized AI companions, open-source data/analytics platforms, blockchain tooling, and LLM-powered developer utilities
+3. Lola: Personalized AI companion based on the Samantha AI repository
+4. Lola: Intended to be an assistant, friend, creative muse, and supportive presence
+5. Lola: Planned features: voice interaction, journaling, emotional tracking
+6. Lola: Planned as a React Native + Expo mobile app and a Next.js web app sharing a Python backend
+7. Lola: Planned web UI/avatar
+8. RodaAI (Republic of Data Analytics & AI): Open-source AI, data science, and analytics platform
+9. RodaAI: Plans: expand features, deploy, and integrate with Lola
+10. RodaAI: Uses Python as the implementation language
+11. script_analyzer_bot: Node.js frontend with Python (FastAPI) backend using LLMs
+12. script_analyzer_bot: Analyzes JavaScript file dependencies and execution order
+13. script_analyzer_bot: Planned capabilities: dependency analysis, README generation, automatic file ordering, PostgreSQL, analytics, async jobs, file storage
+14. script_analyzer_bot: Planned capabilities: transcript analysis, Slack-style commands, transcript upload, web UI, and integration with other AI platforms
+15. Kubu-hai: Uses FastAPI with PostgreSQL and Redis
+16. Kubu-hai: Planned deployment: Docker Compose, Nginx, HTTPS, Alembic, GitHub Actions
+17. Kubu-hai: Backend hosted at api.kubu-hai.com
+18. Kubu-hai: Sentry DSN is stored for this project
+19. Kubu-hai: User prefers FastAPI as the backend framework for this project
+20. KubuRenovate: Planned Renovate-like automated dependency management system
+21. Web4AI: FastAPI backend for a frontend hosted on GitHub Pages
+22. Web4AI: Complete HTML pages for AI operations using WebLLM
+23. Web4AI: Planned production-scale integration with ProjectPilotAI
+24. Web4Asset: GitHub repository stored
+25. Web4AI Project Assistant: GitHub repository stored
+26. Fadaka (blockchain): GitHub repository stored for the project
+27. Fadaka: Targets ERC-20 compliance, CI/CD, and automatic testnet deployment
+28. Fadaka: Wants Homebrew packaging automation and integration with the fadaka monorepo
+29. Fadaka: Requested a full functional implementation of OpenZeppelin access control (AccessControl, TimelockController, AccessManager) for the project's ERC-20 token, including .agent.md and CLAUDE.md agent-context files
+30. Fadaka: Engineered the Fadaka Layer 1 blockchain and the accompanying Swift Beta wallet application
+31. Enclov AI: User wants to integrate an LLM model configuration script into a production backend
+32. AgbakoAI: Intended to remain adaptable across sectors with a modular architecture
+33. AgbakoAI: Architecture can accommodate additional industries and features
+34. FastAI/PyTorch DDP training pipeline: Planned scaling to CIFAR, ImageNet, and custom datasets
+35. FastAI/PyTorch DDP training pipeline: Planned more modular architecture
+36. Speech-to-speech AI: Conversational speech AI on a laptop using Google Generative AI, Speech-to-Text, and Text-to-Speech
+37. Speech-to-speech AI: With Express API, desktop UI, or Swift frontend bridge
+38. Swiftbot: GitHub repository stored
+39. Aura: GitHub repository stored; noted "xlsl" as an item to include or consider in future automation
+40. ChatGPT5 Mini: A project the user is building; wants a creative, unique logo reflecting its innovative and playful nature
+41. Aura Research Project: Authored the `.xlsl` intelligent spreadsheet format specification and structured the Aura Research Project repository, including associated extensions (`.xlog`, `.xsim`, `.xquant`, `.xdim`, `.xphilo`)
+42. LMLM: Developed the LMLM local multi-language AI toolkit and defined its 9-phase runtime execution lifecycle
+43. Web4 Publisher: Created Web4 Publisher, a semantic-first static publishing engine for Markdown and MDX content
+44. Engaged in language design, compiler pipelines, domain-specific grammars, and editor syntax highlighting systems using ANTLR `.g4` grammars, LPeg grammars, Tree-sitter queries, and custom lexer toolchains
+45. Implemented mathematical simulation scripts and quantum circuit algorithms using Qiskit and Cirq
+
+### Personal Context
+1. Name is Seriki Yakub, also known as KUBU LEE or Seriki Walter Yakub
+2. Software engineer, AI developer, Web4 developer, and blockchain developer who functions as CEO of Qubuhub
+3. 23 years old as of August 2026
+4. Develops software across multiple programming languages, including Python, Go, Solidity, C++, C#, F#, D, and JavaScript
+5. Sustained technical interests in artificial intelligence, Web4 protocols, blockchain architectures, and cryptocurrency networks
+
+### Tools & Workflow
+1. Works across Python (FastAPI), Node.js, React Native, and Next.js
+2. Utilizes multiple software development environments and version control setups to manage source code, scripts, and build configurations across Python, Go, Solidity, C++, C#, F#, D, and JavaScript
+3. Works with specialized development and syntax analysis tooling including ANTLR, LPeg, Tree-sitter, Qiskit, and Cirq
+
+## PREFERENCES
+
+### Task Behavior
+1. Prefers FastAPI as the default backend framework
+2. Wants PostgreSQL and Redis included in project setups
+3. Prefers hybrid architectures where Node.js handles bot interactions and Python handles LLM-powered analysis tasks
+4. Wants advanced API gateway features and deployment scripts for multi-language microservices
+5. Wants AI capabilities expanded rather than kept minimal, including deployment-ready scaffolds and production-grade integrations

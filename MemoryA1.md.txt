@@ -1,0 +1,19 @@
+## MEMORIES
+### Work Context
+#### projects 
+#####books
+1. Authored the `.xlsl` intelligent spreadsheet format specification and structured the Aura Research Project repository, including associated extensions (`.xlog`, `.xsim`, `.xquant`, `.xdim`, `.xphilo`).
+2. Developed the LMLM local multi-language AI toolkit and defined its 9-phase runtime execution lifecycle.
+3. Engineered the Fadaka Layer 1 blockchain and the accompanying Swift Beta wallet application.
+4. Created Web4 Publisher, a semantic-first static publishing engine for Markdown and MDX content.
+5. Engaged in language design, compiler pipelines, domain-specific grammars, and editor syntax highlighting systems using ANTLR `.g4` grammars, LPeg grammars, Tree-sitter queries, and custom lexer toolchains.
+6. Implemented mathematical simulation scripts and quantum circuit algorithms using Qiskit and Cirq.
+### Personal Context
+1. Name is Seriki Yakub, also known as KUBU LEE or Seriki Walter Yakub.
+2. Serves as a software engineer, AI developer, Web4 developer, and blockchain developer who functions as CEO of Qubuhub.
+3. Was 23 years old as of August 2026.
+4. Develops software across multiple programming languages, including Python, Go, Solidity, C++, C#, F#, D, and JavaScript.
+5. Possesses sustained technical interests in artificial intelligence, Web4 protocols, blockchain architectures, and cryptocurrency networks.
+### Tools & Workflow
+1. Utilizes multiple software development environments and version control setups to manage source code, scripts, and build configurations across Python, Go, Solidity, C++, C#, F#, D, and JavaScript.
+2. Works with specialized development and syntax analysis tooling including ANTLR, LPeg, Tree-sitter, Qiskit, and Cirq.
