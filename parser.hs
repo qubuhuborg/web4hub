@@ -24,7 +24,7 @@ data Configuration = Configuration {
 
 data Environment = Environment {
     config :: Configuration,
-    games :: [Game],
+    dimensions :: [oreos],
     specs :: [Spec]
 }
 
