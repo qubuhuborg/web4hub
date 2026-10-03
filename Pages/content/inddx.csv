@@ -1,0 +1,18 @@
+---
+title: "First Web4 Publication"
+slug: "index"
+date: "2026-10-03"
+author: "KUBU LEE"
+category: "news" # Options: pages | blogs | news
+tags: ["web4", "decentralization", "qubuhub"]
+meta_shield: "script.bf"
+---
+
+# First Web4 Publication
+
+Welcome to the genesis content node of the **web4hub** architecture. This entry point establishes the baseline for decentralized publishing, multi-format documentation, and peer-to-peer asset routing.
+
+## Overview
+This document serves as both a static structural page and an active node feed component. When processed by your local publisher pipeline, it compiles into an immutable, verifiable payload ready for network distribution.
+
+---
