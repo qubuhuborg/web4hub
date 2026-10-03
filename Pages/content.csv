@@ -1,4 +1,4 @@
-title,slug,date,author,subject,body, site,blog,xbase,mod,headers,body, get, post
+title,slug,date,author,subject,body,site,blog,xbase,mod,headers,body,get,post
 "First Web4 Publication","index","2026-10-03","KUBU LEE","news","Welcome to the genesis content node of the web4hub architecture."
 "Decentralized Routing Manual","routing-guide","2026-10-03","KUBU LEE","pages","Core documentation for peer-to-peer node lookups and bitmask verification."
 "GPU State Management","gpu-states","2026-10-03","KUBU LEE","blogs","An architectural breakdown of using script.bf for high-throughput deduplication."
