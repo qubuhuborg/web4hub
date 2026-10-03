@@ -1,0 +1,43 @@
+#include <metal_stdlib>
+using namespace metal;
+
+struct BloomFilterConfig {
+    uint capacity;       // Number of incoming items to process
+    uint filter_words;   // Size of the bit array in 32-bit words
+};
+
+// GPU Bloom Filter + Concurrent Deduplication Kernel
+kernel void filter_and_store_bloom(
+    constant BloomFilterConfig& config [[buffer(0)]],
+    device const uint* incoming_keys [[buffer(1)]],
+    device atomic_uint* bloom_filter [[buffer(2)]],    // The .bf bit array (seen states)
+    device uint* unique_output [[buffer(3)]],         // Output buffer for unique keys
+    device atomic_uint* output_counter [[buffer(4)]], // Tracks unique items count
+    uint gid [[thread_position_in_grid]]
+) {
+    if (gid >= config.capacity) return;
+
+    uint key = incoming_keys[gid];
+    
+    // 1. Hash the key to find its position in the bit array
+    uint hash = key * 0x9E3779B1u;
+    uint bit_index = hash % (config.filter_words * 32u);
+    uint word_idx = bit_index >> 5;           // Equivalent to bit_index / 32
+    uint bit_mask = 1u << (bit_index & 31u);  // Equivalent to bit_index % 32
+
+    // 2. Atomically set the bit and retrieve the previous word state
+    uint old_word = atomic_fetch_or_explicit(
+        &bloom_filter[word_idx], 
+        bit_mask, 
+        memory_order_relaxed
+    );
+    
+    // 3. Check if the bit was already set (duplicate detection)
+    bool already_seen = (old_word & bit_mask) != 0u;
+
+    // 4. If it's new, atomically add it to the unique output stream
+    if (!already_seen) {
+        uint pos = atomic_fetch_add_explicit(output_counter, 1u, memory_order_relaxed);
+        unique_output[pos] = key;
+    }
+}
