@@ -1,1 +1,4 @@
-title:First Web4 Publication, slug name:index, date , author:KUBULEE, subject pages, blogs, news
+title,slug,date,author,subject,body
+"First Web4 Publication","index","2026-10-03","KUBU LEE","news","Welcome to the genesis content node of the web4hub architecture."
+"Ecosystem Architecture","architecture","2026-10-03","KUBU LEE","pages","Detailed overview of the P2P routing layers."
+"Building Decentralized Nodes","building-nodes","2026-10-03","KUBU LEE","blogs","A technical dive into local GPU state management."
