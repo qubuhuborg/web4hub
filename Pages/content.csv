@@ -1,7 +1,8 @@
-name, date , author, subject pages, blogs, news
-title: "First Web4 Publication"
-slug: "index"
-author: "KUBU LEE"
+title,slug name, date , author, subject pages, blogs, news
+
+# "First Web4 Publication"
+# "index"
+# "KUBU LEE"
 
 # Welcome to Web4Hub
 This is the live entry point for my decentralized node publishing pipeline.
