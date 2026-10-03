@@ -1,0 +1,2 @@
+# Push compiled assets to your decentralized publishing node
+qubuhub-publish ./dist --gateway local
