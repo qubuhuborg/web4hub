@@ -1,0 +1,549 @@
+##### Copyright 2026 Google LLC.
+
+# @title Licensed under the Apache License, Version 2.0 (the "License");
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Gemini Agents API: Build managed agents with the Interactions API
+
+<a class="tfo-notebook-buttons" target="_blank" href="https://colab.research.google.com/github/google-gemini/cookbook/blob/main/quickstarts/Get_started_managed_agents.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" height=30/></a>
+
+The [Interactions API](https://ai.google.dev/gemini-api/docs/interactions) provides a unified interface for working with Gemini models and agents. The [Getting Started notebook](./Get_started_interactions_api.ipynb) covers how to use it with standard Gemini **models** for text generation, multi-turn conversations, and tool use.
+
+This notebook focuses on something different: **managed agents** with the `antigravity-preview-05-2026` agent.
+
+### `agent=` vs `model=`
+
+When you call the Interactions API, you choose between two modes:
+
+| Parameter | What runs | Best for |
+|-----------|-----------|----------|
+| `model="gemini-..."` | A standard Gemini model | Text generation, structured output, function calling |
+| `agent="antigravity-preview-05-2026"` | A **managed agent** in a sandboxed Linux environment | Autonomous tasks: code execution, web research, file management |
+
+With `model=`, you get a stateless LLM call (see the [Getting Started notebook](./Get_started_interactions_api.ipynb)). With `agent=`, you spin up an autonomous agent that can **reason, plan, write and execute code, browse the web, and manage files** — all inside a secure sandbox, without you writing any orchestration logic.
+
+This notebook walks you through the agent mode step by step:
+
+1. **Simple questions** — use the agent like an LLM (it works, but it's overkill!)
+2. **Multi-turn conversations** — persistent sandbox = built-in memory
+3. **Using tools** — code execution, web search, file operations
+4. **Loading data into the sandbox** — inject files before the agent starts
+5. **Creating reusable custom agents** — bundle instructions, skills, and environment
+
+<a name="setup"></a>
+## Setup
+
+### Install SDK
+
+Install the SDK from [PyPI](https://github.com/googleapis/python-genai). It's recommended to always use the latest version.
+
+%pip install -U -q "google-genai>=2.9.0"
+
+### Setup your API key
+
+To run the following cell, your API key must be stored it in a Colab Secret named `GEMINI_API_KEY`. If you don't already have an API key or you aren't sure how to create a Colab Secret, see [Authentication ![image](https://storage.googleapis.com/generativeai-downloads/images/colab_icon16.png)](../quickstarts/Authentication.ipynb) for an example.
+
+from google.colab import userdata
+
+GEMINI_API_KEY = userdata.get('GEMINI_API_KEY')
+
+### Initialize SDK client
+
+With the new SDK, now you only need to initialize a client with you API key.
+
+import uuid
+from google import genai
+from google.genai import types
+from IPython.display import Markdown
+
+client = genai.Client(api_key=GEMINI_API_KEY)
+
+# The default managed agent.
+AGENT = "antigravity-preview-05-2026"
+
+# Generate a unique suffix for this notebook session to prevent agent ID conflicts
+UNIQUE_SUFFIX = uuid.uuid4().hex[:8]
+
+print("Client ready!")
+
+## 1. Simple questions — the agent as an LLM
+
+The simplest way to use a managed agent is to ask it a question, just like you'd call a standard Gemini model. Pass `agent="antigravity-preview-05-2026"` and `environment="remote"` to create a fresh Linux sandbox for the agent.
+
+This works, but it's a bit like driving a Formula 1 car to the grocery store — the agent has code execution, web search, and file management capabilities that are all sitting idle for a simple factual question.
+
+interaction = client.interactions.create(
+    agent=AGENT,
+    input="What is the capital of France?",
+    environment="remote",
+)
+
+Markdown(interaction.output_text)
+
+# The response also includes metadata about the agent's sandbox.
+print(f"Status:         {interaction.status}")
+print(f"Interaction ID: {interaction.id}")
+print(f"Environment ID: {interaction.environment_id}")
+
+Notice the `environment_id` in the response. That's the agent's persistent Linux sandbox. Even for this simple question, a full container was provisioned. Let's make use of that persistence next.
+
+## 2. Multi-turn conversations
+
+Since each agent runs in a persistent sandbox, you can **continue where you left off** by reusing the `environment_id` and linking turns with `previous_interaction_id`.
+
+This is fundamentally different from stateless `model=` calls. The agent has a true *persistent environment* — files it creates stick around, packages it installs remain available, and conversation context is preserved.
+
+# Turn 1: Introduce yourself.
+turn1 = client.interactions.create(
+    agent=AGENT,
+    input="Hi! My name is Alice and I'm a software engineer. Remember that in a knowledge.md doc.",
+    environment= "remote",
+)
+
+Markdown(f"**Turn 1:** {turn1.output_text}")
+
+# Turn 2: Ask whether the agent remembers.
+# Pass environment_id and previous_interaction_id to continue the conversation.
+turn2 = client.interactions.create(
+    agent=AGENT,
+    input="what's my name and what do I do?",
+    environment= turn1.environment_id,
+)
+
+Markdown(f"**Turn 2:** {turn2.output_text}")
+
+The agent remembered across turns because you passed `environment` with the previous environment ID — same sandbox, which means same files.
+
+You could have achieved the same result using `previous_interaction_id` to keep the history of the previous conversation, but that would not have showcased the environement specificities.
+
+This is how you build stateful, multi-turn workflows. See the [Getting Started notebook](./Get_started_interactions_api.ipynb) for `model=`-based multi-turn using `previous_interaction_id` alone (without environments).
+
+## 3. Using tools — where the agent shines
+
+This is where managed agents go beyond a standard chat model. The antigravity-preview-05-2026 agent has **built-in tools** it uses autonomously — you don't declare them, just describe your goal and the agent figures out what to use.
+
+| Tool | Description |
+|------|-------------|
+| `bash` | Execute shell commands in the sandbox |
+| `google_search` | Search the web for current information |
+| `url_context` | Fetch and extract text from URLs |
+| `write_file` | Create or overwrite files in the sandbox |
+| `read_file` | Read file contents from the sandbox |
+| `list_files` | List directory contents |
+| `delete_file` | Remove files from the sandbox |
+
+For the standard `model=`-based tools (Google Search grounding, code execution, function calling), see the [Getting Started notebook](./Get_started_interactions_api.ipynb) and the dedicated tool notebooks:
+- [Code Execution](./Code_Execution.ipynb)
+- [Search Grounding](./Search_Grounding.ipynb)
+- [Function Calling](./Function_calling.ipynb)
+
+### Code execution
+
+Ask a computational question and the agent will write code, run it in its sandbox, and return the verified result.
+
+interaction = client.interactions.create(
+    agent=AGENT,
+    input=(
+        "Write a Python script that computes the first 20 Fibonacci numbers. "
+        "Run it and show the output."
+    ),
+    environment="remote",
+)
+
+Markdown(interaction.output_text)
+
+### Inspecting steps — what the agent actually did
+
+The `steps` field in the response shows the agent's reasoning chain: its thoughts, tool calls, tool results, and final output. This is useful for debugging and understanding the agent's behavior.
+
+# Inspect the steps from the Fibonacci interaction above.
+for i, step in enumerate(interaction.steps):
+    step_type = step.type
+    print(f"--- Step {i} [{step_type}] ---")
+
+    # Tool call steps show which tool was invoked and with what arguments.
+    if hasattr(step, "name") and step.name:
+        print(f"  Tool: {step.name}")
+        if hasattr(step, "arguments"):
+            args_str = str(step.arguments)[:300]
+            print(f"  Args: {args_str}")
+
+    # Content steps contain the agent's text output.
+    if hasattr(step, "content") and step.content:
+        for c in step.content:
+            if hasattr(c, "text"):
+                print(f"  Text: {c.text[:300]}")
+    print()
+
+### Web search
+
+The agent can search the web autonomously when it needs up-to-date information.
+
+interaction = client.interactions.create(
+    agent=AGENT,
+    input="What were the top 3 news stories about Google this week? Summarize them briefly.",
+    environment="remote",
+)
+
+Markdown(interaction.output_text)
+
+### File operations
+
+The agent can create, read, and manage files in its sandbox. Files persist within the environment across turns.
+
+# Ask the agent to create a file, run it, and show results.
+interaction = client.interactions.create(
+    agent=AGENT,
+    input=(
+        "Create a Python file called 'analysis.py' that generates 50 random numbers, "
+        "computes mean, median, and standard deviation, then prints the results. "
+        "Run it and show the output."
+    ),
+    environment="remote",
+)
+
+Markdown(interaction.output_text)
+
+## 4. Loading data into the agent's sandbox
+
+You can inject files into the agent's environment **before it starts** using `sources`. This is how you provide data, configuration, or code for the agent to work with.
+
+| Source type | Description | Best for |
+|------------|-------------|----------|
+| `inline` | Embed content directly (max 75 KB) | Config files, small scripts |
+| `gcs` | Load from Google Cloud Storage | Large datasets |
+| `repository` | Load from GitHub | Code repositories |
+
+# Inject a CSV file inline and ask the agent to analyze it.
+csv_data = """name,age,city,score
+              Alice,28,Paris,92
+              Bob,35,London,87
+              Charlie,42,Berlin,95
+              Diana,31,Tokyo,88
+              Eve,26,Sydney,91"""
+
+interaction = client.interactions.create(
+    agent=AGENT,
+    input="Read the file data.csv, analyze it, and tell me who scored the highest.",
+    environment={
+        "type": "remote",
+        "sources": [
+            {
+                "type": "inline",
+                "content": csv_data,
+                "target": "/workspace/data.csv",
+            }
+        ],
+    },
+)
+
+Markdown(interaction.output_text)
+
+You can also load from other sources:
+
+```python
+# From Google Cloud Storage
+{"type": "gcs", "source": "gs://my-bucket/data/", "target": "/workspace/data/"}
+
+# From a GitHub repository
+{"type": "repository", "source": "https://github.com/user/repo", "target": "/workspace/repo/"}
+```
+
+You can combine multiple sources in a single request — the agent will have access to all of them at startup.
+
+**Pro tip:** You can use that to add skills to you agent, as you'll see next.
+
+## 5. Creating reusable custom agents
+
+So far, every interaction has used the base `antigravity-preview-05-2026` agent with inline instructions. Once you've found a setup that works well, you can **persist it into a named custom agent** that bundles:
+
+- **Instructions** — system prompt that defines the agent's behavior
+- **Environment** — pre-configured sandbox with files and sources
+- **Skills** — `SKILL.md` files that teach the agent specialized capabilities
+
+This is the recommended workflow:
+1. **Prototype** with `agent="antigravity-preview-05-2026"` — iterate on instructions, sources, and prompts
+2. **Create** a named agent via the `/agents` endpoint
+3. **Invoke** your agent by name from any client
+
+### Creating a custom agent
+
+# Create a custom data analysis agent using the SDK.
+my_agent = client.agents.create(
+    id=f"my-data-analyst-{UNIQUE_SUFFIX}",
+    base_agent=AGENT,
+    system_instruction=(
+        "You are a data analysis assistant. "
+        "Always write Python code using pandas to answer questions. "
+        "Show your code and output clearly. "
+        "When creating visualizations, save them as PNG files."
+    ),
+    base_environment={
+        "type": "remote",
+    },
+)
+
+print(f"✓ Agent created: {my_agent.id}")
+
+### Using a custom agent
+
+Once created, invoke your agent by name. It will follow its instructions automatically.
+
+# Invoke the custom agent.
+interaction = client.interactions.create(
+    agent=f"my-data-analyst-{UNIQUE_SUFFIX}",
+    input=(
+        "Generate a sample dataset of 100 sales records with columns: "
+        "product, region, revenue, quantity. "
+        "Find the top 5 products by total revenue and show the analysis."
+    ),
+    environment="remote",
+)
+
+Markdown(interaction.output_text)
+
+### Creating an agent with pre-loaded data
+
+You can define the agent's environment with sources, so data is ready before the agent starts:
+
+# Create an agent with GCS sources pre-loaded using the SDK.
+my_slides_agent = client.agents.create(
+    id=f"my-gemini-api-agent-{UNIQUE_SUFFIX}",
+    base_agent=AGENT,
+    system_instruction=(
+        "You are a software engineer speciliazed in the Gemini API. "
+        "Use the skills available in /.agents/skills/ to create amazing apps."
+    ),
+    base_environment={
+        "type": "remote",
+        "sources": [
+            {
+                "type": "repository",
+                "source": "https://github.com/google-gemini/gemini-skills",
+                "target": "/.agents/skills",
+            }
+        ],
+    },
+)
+
+print(f"✓ Agent created: {my_slides_agent.id}")
+
+# Invoke the custom agent.
+interaction = client.interactions.create(
+    agent=f"my-gemini-api-agent-{UNIQUE_SUFFIX}",
+    input="Tell me what you can do with your skills?",
+    environment="remote",
+)
+
+Markdown(interaction.output_text)
+
+### Forking from an existing environment
+
+If you've already set up a sandbox you like (installed packages, created files, etc.), you can fork it into a new agent using the `environment_id` from a previous interaction:
+
+```python
+my_forked_agent = client.agents.create(
+    id="my-forked-agent",
+    base_agent=AGENT,
+    system_instruction="Your custom instructions here.",
+    base_environment={"env_id": "YOUR_ENVIRONMENT_ID"},
+)
+```
+
+This captures the exact state of that sandbox — all installed packages, files, and configuration.
+
+my_forked_agent = client.agents.create(
+    id="my-forked-agent",
+    base_agent="my-gemini-api-agent",
+    system_instruction="I want all your apps to use the Live API",
+    base_environment={"env_id": interaction.environment_id},
+)
+print(f"✓ Agent forked: {my_forked_agent.id}")
+
+### Managing agents (CRUD)
+
+The `/agents` endpoint supports full lifecycle management:
+
+# List all your agents.
+print("Your agents:")
+for agent in client.agents.list().agents:
+    print(f"- {agent.id}")
+
+# Get a specific agent's details.
+agent = client.agents.get(id="my-data-analyst")
+print(f"\nAgent details for {agent.id}:")
+print(f"Base agent: {agent.base_agent}")
+print(f"System instruction: {agent.system_instruction}")
+
+# Clean up: delete the agents you created.
+for agent_name in ["my-data-analyst", "my-forked-agent", "my-gemini-api-agent"]:
+    try:
+        client.agents.delete(id=agent_name)
+        print(f"✓ Deleted {agent_name}")
+    except Exception as e:
+        print(f"  Failed to delete {agent_name}: {e}")
+
+### Agent directory structure
+
+Behind the API, an agent is defined by a simple set of files. This is what gets deployed when you create one:
+
+```
+my-agent/
+├── agent.yaml       # Configuration: base agent, tools, environment
+├── AGENTS.md        # System instructions (loaded automatically)
+├── skills/          # Custom SKILL.md files that extend capabilities
+└── workspace/       # Files seeded into the remote sandbox at startup
+```
+
+- **`agent.yaml`** maps directly to the `/agents` API resource
+- **`AGENTS.md`** provides system instructions — automatically loaded by the harness
+- **`skills/`** contains specialized `SKILL.md` files the agent discovers and uses
+- **`workspace/`** files are injected into the sandbox at startup
+
+This file-based structure makes agents easy to version-control, share, and iterate on. Check the [documentation](https://ai.google.dev/gemini-api/docs/custom-agents#file-based_customization) for more details.
+
+## 6. Streaming
+
+For longer tasks, enable streaming with `stream=True` to get real-time updates as the agent works. Instead of waiting for the complete response, you receive a stream of **Server-Sent Events (SSE)** that let you show progress to the user.
+
+### Event types
+
+The stream delivers events that tell you what the agent is doing:
+
+| Event type | Meaning | What to do |
+|------------|---------|------------|
+| `interaction.created` | The interaction was created | Store the `id` for later reference |
+| `interaction.status_update` | Status changed (e.g., `in_progress`) | Update UI status indicator |
+| `step.start` | A new step began (thinking, tool call, output) | Show a loading indicator |
+| `step.delta` | Incremental content — a chunk of text, thought, or tool output | **Append to display** — this is the main content |
+| `step.stop` | A step completed | Hide loading indicator |
+| `interaction.completed` | The agent finished all work | Finalize the UI |
+
+The `step.delta` events are where the content lives. Each delta has a `type` (e.g., `text`, `thought`, `function_call`, `function_result`) and content you can render incrementally.
+
+# Stream a response and collect the text as it arrives.
+stream = client.interactions.create(
+    agent=AGENT,
+    input="Write a short poem about the ocean.",
+    stream=True,
+    environment="remote",
+)
+
+collected_text = []
+
+for event in stream:
+    # Show the event type so you can see the lifecycle.
+    if event.event_type in ("interaction.created", "step.start", "step.stop", "interaction.completed"):
+        print(f"[{event.event_type}]")
+
+    # step.delta events carry the actual content.
+    elif event.event_type == "step.delta":
+        delta = event.delta
+        if hasattr(delta, "text") and delta.text:
+            print(delta.text, end="", flush=True)
+            collected_text.append(delta.text)
+
+print(f"\n\n--- Collected {len(collected_text)} text chunks ---")
+
+## 7. Advanced features
+
+### Network configuration
+
+By default, the agent's sandbox has unrestricted outbound network access. You can control this with the `network` field:
+- **Allowlist specific domains** — only requests to listed domains are permitted
+- **Inject credentials** — automatically add headers (API keys, tokens) to outbound requests
+- **Disable network** — set `network: "disabled"` to block all outbound traffic
+
+# Allow the agent to call only the Gemini API, with an auto-injected API key.
+interaction = client.interactions.create(
+    agent=AGENT,
+    input="Use curl to call the Gemini API and list available models. Show the first 3.",
+    environment={
+        "type": "remote",
+        "network": {
+            "allowlist": [
+                {
+                    "domain": "generativelanguage.googleapis.com",
+                    "transform": [{"x-goog-api-key": GEMINI_API_KEY}],
+                },
+            ]
+        },
+    },
+)
+
+Markdown(interaction.output_text)
+
+### Download environment snapshots
+
+You can download all the files the agent created or modified as a tar archive. This lets you retrieve the agent's work products — code, data, reports — from the sandbox.
+
+import subprocess
+import tarfile
+import os
+
+# Create an interaction where the agent produces files.
+interaction = client.interactions.create(
+    agent=AGENT,
+    input=(
+        "Create a directory called 'project' with a README.md and a hello.py script. "
+        "List the files you created."
+    ),
+    environment="remote",
+)
+
+env_id = interaction.environment_id
+print(f"Environment ID: {env_id}")
+
+Markdown(interaction.output_text)
+
+# Download the environment snapshot.
+download_url = (
+    f"https://generativelanguage.googleapis.com/v1beta/"
+    f"files/environment-{env_id}:download?alt=media"
+)
+
+result = subprocess.run(
+    ["curl", "-L", "-s", "-o", "snapshot.tar",
+     "-H", f"x-goog-api-key: {GEMINI_API_KEY}",
+     download_url],
+    capture_output=True, text=True,
+)
+
+if os.path.exists("snapshot.tar") and os.path.getsize("snapshot.tar") > 0:
+    with tarfile.open("snapshot.tar") as tar:
+        print("Files in snapshot:")
+        for member in tar.getmembers():
+            print(f"  {member.name} ({member.size} bytes)")
+else:
+    print("Snapshot not available (environment may have expired).")
+
+## Next steps
+
+You've walked through the core capabilities of managed agents:
+
+1. ✅ **Simple Q&A** — the agent can answer questions like an LLM
+2. ✅ **Multi-turn** — persistent sandbox enables stateful conversations
+3. ✅ **Built-in tools** — code execution, web search, file management
+4. ✅ **Data loading** — inject files via inline, GCS, or GitHub sources
+5. ✅ **Custom agents** — reusable configurations with instructions, skills, and environment
+6. ✅ **Streaming** — real-time updates as the agent works
+7. ✅ **Advanced** — network control and environment snapshots
+
+### Learn more
+
+- **[Getting Started notebook](./Get_started_interactions_api.ipynb)** — the `model=`-based Interactions API for standard generation, multi-turn, and tools
+- **[Managed Agents documentation](https://ai.google.dev/gemini-api/docs/eap/gemini-agents/gemini-agents)** — full reference for the agent API
+- **[Code Execution](./Code_Execution.ipynb)** — model-based code execution
+- **[Search Grounding](./Search_Grounding.ipynb)** — model-based web search
+- **[Function Calling](./Function_calling.ipynb)** — custom function declarations
