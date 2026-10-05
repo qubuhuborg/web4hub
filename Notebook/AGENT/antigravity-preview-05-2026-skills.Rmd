@@ -1,4 +1,5 @@
-##### Copyright 2026 Google LLC.
+```rego
+ ##### Copyright 2026 Google LLC.
 
 # @title Licensed under the Apache License, Version 2.0 (the "License");
 #
@@ -13,14 +14,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+```
 # Gemini Agents API: Build managed agents with the Interactions API
 
 <a class="tfo-notebook-buttons" target="_blank" href="https://colab.research.google.com/github/google-gemini/cookbook/blob/main/quickstarts/Get_started_managed_agents.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" height=30/></a>
 
 The [Interactions API](https://ai.google.dev/gemini-api/docs/interactions) provides a unified interface for working with Gemini models and agents. The [Getting Started notebook](./Get_started_interactions_api.ipynb) covers how to use it with standard Gemini **models** for text generation, multi-turn conversations, and tool use.
 
-This notebook focuses on something different: **managed agents** with the `antigravity-preview-05-2026` agent.
+This notebook focuses
+                       on something different: **managed agents** with the `antigravity-preview-05-2026` agent.
 
 ### `agent=` vs `model=`
 
