@@ -42,3 +42,4 @@ kernel void store_memory_keys(
         slot = (slot + 1u) & (config.capacity - 1u);
     }
 }
+
