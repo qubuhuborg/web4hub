@@ -1,0 +1,27 @@
+$ cat iOSApp_iphonesimulator.xctestrun
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>iOSAppTests</key>
+    <dict>
+        <key>BundleIdentifiersForCrashReportEmphasis</key>
+        <array>
+            <string>com.myapps.iOSApp</string>
+            <string>com.myapps.iOSAppTests</string>
+            <string>com.myapps.iOSAppUITests</string>
+        </array>
+        …
+        <key>TestBundlePath</key>
+        <string>__TESTHOST__/PlugIns/iOSAppTests.xctest</string>
+        <key>TestHostBundleIdentifier</key>
+        <string>com.myapps.iOSApp</string>
+        <key>TestHostPath</key>
+        <string>__TESTROOT__/Debug-iphonesimulator/iOSApp.app</string>
+        …
+    </dict>
+    <key>iOSAppUITests</key>
+    …
+</dict>
+</plist>
+xcodebuild test-without-building -xctestrun iOSApp_iphonesimulator.xctestrun -destination 'platform=iOS Simulator,id=3D95DF14-E8B7-4A05-B65B-78F381B74B22' -skip-testing:iOSAppUITests
