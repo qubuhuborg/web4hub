@@ -25,3 +25,4 @@ $ cat iOSApp_iphonesimulator.xctestrun
 </dict>
 </plist>
 xcodebuild test-without-building -xctestrun iOSApp_iphonesimulator.xctestrun -destination 'platform=iOS Simulator,id=3D95DF14-E8B7-4A05-B65B-78F381B74B22' -skip-testing:iOSAppUITests
+xcodebuild -exportArchive -archivePath <xcarchivepath> -exportPath <destinationpath> -exportOptionsPlist <path>
