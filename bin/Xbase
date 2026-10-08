@@ -1,3 +1,489 @@
 #!/usr/bin/env python3
 from xbase.cli import main
 raise SystemExit(main())
+Sending GET request to http://webdav@10.176.140.141:8080/info/refs?service=git-upload-pack
+Connecting to remote 10.176.140.141 port 8080
+SSH: Connecting to github.com port 22
+SSH: Socket connected
+SSH: Creating SSH session for github.com:22
+SSH: Starting SSH handshake
+Sending GET request to https://github.com/qubuhuborg/codex/info/refs?service=git-upload-pack
+Connecting to remote github.com port 443
+Sending GET request to https://github.com/qubuhuborg/Web4-app.github.io/info/refs?service=git-upload-pack
+Connecting to remote github.com port 443
+Sending request:
+GET /qubuhuborg/codex/info/refs?service=git-upload-pack HTTP/1.1
+User-Agent: git/2.0 (workingcopy.app 7.0.2)
+Host: github.com
+Accept: */*
+Sending request:
+GET /qubuhuborg/Web4-app.github.io/info/refs?service=git-upload-pack HTTP/1.1
+User-Agent: git/2.0 (workingcopy.app 7.0.2)
+Host: github.com
+Accept: */*
+SSH: SSH handshake complete
+Requesting credentials for git@github.com:web4hub/Note.git (user: git, allowed: SSH key)
+Note: Using SSH key ssh-rsa 4096 89:26:f6:13:78:d5:db:2c:39:7a:bf:12:49:93:5c:66
+SSH: Authenticating with SSH key from file for user 'git'
+Received:
+HTTP/1.1 200 OK
+Server: GitHub-Babel/3.0
+Content-Type: application/x-git-upload-pack-advertisement
+Content-Security-Policy: default-src 'none'; sandbox
+expires: Fri, 01 Jan 1980 00:00:00 GMT
+pragma: no-cache
+Cache-Control: no-cache, max-age=0, must-revalidate
+Vary: Accept-Encoding
+Strict-Transport-Security: max-age=31536000
+Transfer-Encoding: chunked
+Date: Thu, 08 Oct 2026 22:23:40 GMT
+X-Frame-Options: DENY
+X-GitHub-Request-Id: DE59:8BFCD:11B9B9D:1751688:6AC817EB
+x-github-edge-region: fra
+
+16E
+001e# service=git-upload-pack
+000001480000000000000000000000000000000000000000 capabilities^{}
+codex: Fetch had no new changes.
+Received:
+HTTP/1.1 200 OK
+Server: GitHub-Babel/3.0
+Content-Type: application/x-git-upload-pack-advertisement
+Content-Security-Policy: default-src 'none'; sandbox
+expires: Fri, 01 Jan 1980 00:00:00 GMT
+pragma: no-cache
+Cache-Control: no-cache, max-age=0, must-revalidate
+Vary: Accept-Encoding
+Strict-Transport-Security: max-age=31536000
+Transfer-Encoding: chunked
+Date: Thu, 08 Oct 2026 22:23:40 GMT
+X-Frame-Options: DENY
+X-GitHub-Request-Id: 7310:1FC28:11DCE34:1784088:6AC817EB
+x-github-edge-region: fra
+
+1BC
+001e# service=git-upload-pack
+00000159e9f708c89e2e5bf84c08be90c462ea61c2a9eac0 HEAD
+unsupported URL protocol
+SSH: Authentication successful
+SSH: Opening SSH channel
+Sending GET request to https://github.com/web4hub/web4browser/info/refs?service=git-upload-pack
+Connecting to remote github.com port 443
+SSH: SSH channel opened successfully
+SSH: Executing command: git-upload-pack 'web4hub/Note.git'
+Retry after 'unsupported URL protocol' -> NO
+Sending request:
+GET /web4hub/web4browser/info/refs?service=git-upload-pack HTTP/1.1
+User-Agent: git/2.0 (workingcopy.app 7.0.2)
+Host: github.com
+Accept: */*
+SSH: Received 4096 bytes
+SSH: Received 4096 bytes
+SSH: Received 1919 bytes
+SSH: Received 4 bytes
+SSH: Sending 4 bytes
+Received:
+HTTP/1.1 401 Unauthorized
+Server: GitHub-Babel/3.0
+Content-Security-Policy: default-src 'none'; sandbox
+Content-Type: text/plain; charset=UTF-8
+Strict-Transport-Security: max-age=31536000
+www-authenticate: Basic realm="GitHub"
+Content-Length: 21
+Date: Thu, 08 Oct 2026 22:23:41 GMT
+X-Frame-Options: DENY
+X-GitHub-Request-Id: 3F89:3C19C4:113DFBB:16C0B6B:6AC817ED
+x-github-edge-region: fra
+
+Repository not found.
+Requesting credentials for https://github.com/web4hub/web4browser (user: <none>, allowed: password)
+Sending GET request to https://github.com/web4hub/web4browser/info/refs?service=git-upload-pack
+web4browser: Doing token authentication for web4hub
+Sending request:
+GET /web4hub/web4browser/info/refs?service=git-upload-pack HTTP/1.1
+User-Agent: git/2.0 (workingcopy.app 7.0.2)
+Host: github.com
+Accept: */*
+Authorization: Basic ************************************************************************
+Note: Fetch had no new changes.
+SSH: Connecting to github.com port 22
+SSH: Socket connected
+SSH: Creating SSH session for github.com:22
+SSH: Starting SSH handshake
+Received:
+HTTP/1.1 200 OK
+Server: GitHub-Babel/3.0
+Content-Type: application/x-git-upload-pack-advertisement
+Content-Security-Policy: default-src 'none'; sandbox
+expires: Fri, 01 Jan 1980 00:00:00 GMT
+pragma: no-cache
+Cache-Control: no-cache, max-age=0, must-revalidate
+Vary: Accept-Encoding
+Strict-Transport-Security: max-age=31536000
+Transfer-Encoding: chunked
+Date: Thu, 08 Oct 2026 22:23:41 GMT
+X-Frame-Options: DENY
+X-GitHub-Request-Id: 3F89:3C19C4:113E1E5:16C0DF5:6AC817ED
+x-github-edge-region: fra
+
+16E
+001e# service=git-upload-pack
+000001480000000000000000000000000000000000000000 capabilities^{}
+web4browser: Fetch had no new changes.
+Sending GET request to https://github.com/qubuhuborg/web4hub/info/refs?service=git-upload-pack
+Connecting to remote github.com port 443
+Sending request:
+GET /qubuhuborg/web4hub/info/refs?service=git-upload-pack HTTP/1.1
+User-Agent: git/2.0 (workingcopy.app 7.0.2)
+Host: github.com
+Accept: */*
+SSH: SSH handshake complete
+Received:
+HTTP/1.1 200 OK
+Server: GitHub-Babel/3.0
+Content-Type: application/x-git-upload-pack-advertisement
+Content-Security-Policy: default-src 'none'; sandbox
+expires: Fri, 01 Jan 1980 00:00:00 GMT
+pragma: no-cache
+Cache-Control: no-cache, max-age=0, must-revalidate
+Vary: Accept-Encoding
+Strict-Transport-Security: max-age=31536000
+Transfer-Encoding: chunked
+Date: Thu, 08 Oct 2026 22:23:42 GMT
+X-Frame-Options: DENY
+X-GitHub-Request-Id: ACA3:3C19C4:113E862:16C166A:6AC817EE
+x-github-edge-region: fra
+
+1BC
+001e# service=git-upload-pack
+000001593d81116f04e8395ca2649abc52ea7e37c1a60352 HEAD
+Sending POST request to https://github.com/qubuhuborg/web4hub/git-upload-pack
+Sending request:
+POST /qubuhuborg/web4hub/git-upload-pack HTTP/1.1
+User-Agent: git/2.0 (workingcopy.app 7.0.2)
+Host: github.com
+Accept: application/x-git-upload-pack-result
+Content-Type: application/x-git-upload-pack-request
+Content-Length: 1124
+Sending request:
+0074want 3d81116f04e8395ca2649abc52ea7e37c1a60352 multi_ack_detailed side-band-64k include-tag thin-pack ofs-delta 
+00000032have 45c2aaa38fcd7cd6251657e488e37b807a3f658a
+0032have 98986cfc1cfe9da4278ef97a8aa087fc7748af33
+0032have 2d840dc2bdf11342a5c0f8dc219d5e4e8bfc1ffa
+0032have 437473ed90c76995f7b44ea0edf35a0eb678bc51
+0032have d02aeaf4aaad566ca509b2c8ec8a0b080d092d78
+0032have e87e956145a10b42b5c9921bfb9909473e905b23
+0032have 70068ad341b2db57fef8b3db5581d3e4fb4dce5a
+0032have bb998b0eaee522e1f8483d63e26420febda04ef6
+0032have e43db9484f077b84c27dab07d503ece5bdbeb383
+0032have e21e8babf000f13b833d2d4bcb352356e159deea
+0032have 9f0cff923405ba156436da8188529ec91eefeb97
+0032have 5034c662a56702dc748c2bbfc62da8f3617e59a4
+0032have 92707b4760b4cf5b92c9fa47064c67bf9effae06
+0032have a30e2b514f29efbe1cec37d6be50284ace155c82
+0032have 11191ff5b74a13c6b1ef24fae838ead67172a906
+0032have 0d60b0196c23f75c2926ab12ce1f72ca4a3dc8a1
+0032have 5310bfb6a1f812f762bdf844e18d48d542cc75f7
+0032have 92059548b8708fe722ebdfbbe80be4aac8197f15
+0032have 49f76768b2875f9ff214e52cd0afc4f7e3e74485
+0032have fb2726da6942ae7e1d7ca19dea25d7345d4adc2a
+0000
+Requesting credentials for git@github.com:web4hub/workbook.git (user: git, allowed: SSH key)
+workbook: Using SSH key ssh-rsa 4096 89:26:f6:13:78:d5:db:2c:39:7a:bf:12:49:93:5c:66
+SSH: Authenticating with SSH key from file for user 'git'
+Received:
+HTTP/1.1 200 OK
+Server: GitHub-Babel/3.0
+Content-Type: application/x-git-upload-pack-result
+Content-Security-Policy: default-src 'none'; sandbox
+expires: Fri, 01 Jan 1980 00:00:00 GMT
+pragma: no-cache
+Cache-Control: no-cache, max-age=0, must-revalidate
+Vary: Accept-Encoding
+Strict-Transport-Security: max-age=31536000
+Transfer-Encoding: chunked
+Date: Thu, 08 Oct 2026 22:23:43 GMT
+X-Frame-Options: DENY
+X-GitHub-Request-Id: ACA3:3C19C4:113EA99:16C199E:6AC817EF
+x-github-edge-region: fra
+
+430
+0038ACK 98986cfc1cfe9da4278ef97a8aa087fc7748af33 common
+0038ACK 2d840dc2bdf11342a5c0f8dc219d5e4e8bfc1ffa common
+0038ACK 437473ed90c76995f7b44ea0edf35a0eb678bc51 common
+0038ACK d02aeaf4aaad566ca509b2c8ec8a0b080d092d78 common
+0038ACK e87e956145a10b42b5c9921bfb9909473e905b23 common
+0038ACK 70068ad341b2db57fef8b3db5581d3e4fb4dce5a common
+0038ACK bb998b0eaee522e1f8483d63e26420febda04ef6 common
+0038ACK e43db9484f077b84c27dab07d503ece5bdbeb383 common
+0038ACK e21e8babf000f13b833d2d4bcb352356e159deea common
+0038ACK 9f0cff923405ba156436da8188529ec91eefeb97 common
+0038ACK 5034c662a56702dc748c2bbfc62da8f3617e59a4 common
+0038ACK 92707b4760b4cf5b92c9fa47064c67bf9effae06 common
+0038ACK a30e2b514f29efbe1cec37d6be50284ace155c82 common
+0038ACK 11191ff5b74a13c6b1ef24fae838ead67172a906 common
+0038ACK 0d60b0196c23f75c2926ab12ce1f72ca4a3dc8a1 common
+0038ACK 5310bfb6a1f812f762bdf844e18d48d542cc75f7 common
+0038ACK 92059548b8708fe722ebdfbbe80be4aac8197f15 common
+0038ACK 49f76768b2875f9ff214e52cd0afc4f7e3e74485 common
+0038ACK fb2726da6942ae7e1d7ca19dea25d7345d4adc2a common
+0008NAK
+
+0
+Sending POST request to https://github.com/qubuhuborg/web4hub/git-upload-pack
+Sending request:
+POST /qubuhuborg/web4hub/git-upload-pack HTTP/1.1
+User-Agent: git/2.0 (workingcopy.app 7.0.2)
+Host: github.com
+Accept: application/x-git-upload-pack-result
+Content-Type: application/x-git-upload-pack-request
+Content-Length: 1079
+Sending request:
+0074want 3d81116f04e8395ca2649abc52ea7e37c1a60352 multi_ack_detailed side-band-64k include-tag thin-pack ofs-delta 
+00000032have 98986cfc1cfe9da4278ef97a8aa087fc7748af33
+0032have 2d840dc2bdf11342a5c0f8dc219d5e4e8bfc1ffa
+0032have 437473ed90c76995f7b44ea0edf35a0eb678bc51
+0032have d02aeaf4aaad566ca509b2c8ec8a0b080d092d78
+0032have e87e956145a10b42b5c9921bfb9909473e905b23
+0032have 70068ad341b2db57fef8b3db5581d3e4fb4dce5a
+0032have bb998b0eaee522e1f8483d63e26420febda04ef6
+0032have e43db9484f077b84c27dab07d503ece5bdbeb383
+0032have e21e8babf000f13b833d2d4bcb352356e159deea
+0032have 9f0cff923405ba156436da8188529ec91eefeb97
+0032have 5034c662a56702dc748c2bbfc62da8f3617e59a4
+0032have 92707b4760b4cf5b92c9fa47064c67bf9effae06
+0032have a30e2b514f29efbe1cec37d6be50284ace155c82
+0032have 11191ff5b74a13c6b1ef24fae838ead67172a906
+0032have 0d60b0196c23f75c2926ab12ce1f72ca4a3dc8a1
+0032have 5310bfb6a1f812f762bdf844e18d48d542cc75f7
+0032have 92059548b8708fe722ebdfbbe80be4aac8197f15
+0032have 49f76768b2875f9ff214e52cd0afc4f7e3e74485
+0032have fb2726da6942ae7e1d7ca19dea25d7345d4adc2a
+0009done
+SSH: Authentication successful
+SSH: Opening SSH channel
+Received:
+HTTP/1.1 200 OK
+Server: GitHub-Babel/3.0
+Content-Type: application/x-git-upload-pack-result
+Content-Security-Policy: default-src 'none'; sandbox
+expires: Fri, 01 Jan 1980 00:00:00 GMT
+pragma: no-cache
+Cache-Control: no-cache, max-age=0, must-revalidate
+Vary: Accept-Encoding
+Strict-Transport-Security: max-age=31536000
+Transfer-Encoding: chunked
+Date: Thu, 08 Oct 2026 22:23:43 GMT
+X-Frame-Options: DENY
+X-GitHub-Request-Id: ACA3:3C19C4:113ED80:16C1E11:6AC817EF
+x-github-edge-region: fra
+
+118
+0038ACK 98986cfc1cfe9da4278ef97a8aa087fc7748af33 common
+0038ACK 2d840dc2bdf11342a5c0f8dc219d5e4e8bfc1ffa common
+0038ACK 437473ed90c76995f7b44ea0edf35a0eb678bc51 common
+0038ACK d02aeaf4aaad566ca509b2c8ec8a0b080d092d78 common
+0038ACK e87e956145a10b42b5c9921bfb9909473e905b23 common
+Received:
+6C0
+0038ACK 70068ad341b2db57fef8b3db5581d3e4fb4dce5a common
+0038ACK bb998b0eaee522e1f8483d63e26420febda04ef6 common
+0038ACK e43db9484f077b84c27dab07d503ece5bdbeb383 common
+0038ACK e21e8babf000f13b833d2d4bcb352356e159deea common
+0038ACK 9f0cff923405ba156436da8188529ec91eefeb97 common
+0038ACK 5034c662a56702dc748c2bbfc62da8f3617e59a4 common
+0038ACK 92707b4760b4cf5b92c9fa47064c67bf9effae06 common
+0038ACK a30e2b514f29efbe1cec37d6be50284ace155c82 common
+0038ACK 11191ff5b74a13c6b1ef24fae838ead67172a906 common
+0038ACK 0d60b0196c23f75c2926ab12ce1f72ca4a3dc8a1 common
+0038ACK 5310bfb6a1f812f762bdf844e18d48d542cc75f7 common
+0038ACK 92059548b8708fe722ebdfbbe80be4aac8197f15 common
+0038ACK 49f76768b2875f9ff214e52cd0afc4f7e3e74485 common
+0038ACK fb2726da6942ae7e1d7ca19dea25d7345d4adc2a common
+0031ACK fb2726da6942ae7e1d7ca19dea25d7345d4adc2a
+0024Enumerating objects: 13, done.
+0041Counting objects:   7% (1/13)
+Counting objects:  15% (2/13)
+0023Counting objects:  23% (3/13)
+0023Counting objects:  30% (4/13)
+0023Counting objects:  38% (5/13)
+0023Counting objects:  46% (6/13)
+0023Counting objects:  53% (7/13)
+0023Counting objects:  61% (8/13)
+0023Counting objects:  69% (9/13)
+0043Counting objects:  76% (10/13)
+Counting objects:  84% (11/13)
+0024Counting objects:  92% (12/13)
+0024Counting objects: 100% (13/13)
+002bCounting objects: 100% (13/13), done.
+0045Compressing objects:  11% (1/9)
+Compressing objects:  22% (2/9)
+0025Compressing objects:  33% (3/9)
+0025Compressing objects:  44% (4/9)
+0025Compressing objects:  55% (5/9)
+0025Compressing objects:  66% (6/9)
+0045Compressing objects:  77% (7/9)
+Compressing objects:  88% (8/9)
+0025Compressing objects: 100% (9/9)
+002cCompressing objects: 100% (9/9), done.
+web4hub: Enumerating objects: 13, done.
+web4hub: Counting objects:   7% (1/13)
+Counting objects:  15% (2/13)
+web4hub: Counting objects:  23% (3/13)
+web4hub: Counting objects:  30% (4/13)
+web4hub: Counting objects:  38% (5/13)
+web4hub: Counting objects:  46% (6/13)
+web4hub: Counting objects:  53% (7/13)
+web4hub: Counting objects:  61% (8/13)
+web4hub: Counting objects:  69% (9/13)
+web4hub: Counting objects:  76% (10/13)
+Counting objects:  84% (11/13)
+web4hub: Counting objects:  92% (12/13)
+web4hub: Counting objects: 100% (13/13)
+web4hub: Enumerating objects: 13, done.
+web4hub: Counting objects: 100% (13/13), done.
+web4hub: Compressing objects:  11% (1/9)
+Compressing objects:  22% (2/9)
+web4hub: Compressing objects:  33% (3/9)
+web4hub: Compressing objects:  44% (4/9)
+web4hub: Compressing objects:  55% (5/9)
+web4hub: Compressing objects:  66% (6/9)
+web4hub: Compressing objects:  77% (7/9)
+Compressing objects:  88% (8/9)
+web4hub: Compressing objects: 100% (9/9)
+web4hub: Compressing objects: 100% (9/9), done.
+Received:
+EB7
+0e73PACK
+Received:
+u⁄ä~"IÅ|>“ä¨Ga≤”Æ¿¨nFôÛzÉm_öj°ÒË¶©ŒªÅÒ°;Ô>e§µAíSìO*è˜:≈¶í–ˆ_–¶–¸ùéc8õ2-†ê∫∏RƒÙù¥]O'πΩ÷g1÷dK•y{NI€c:π:'πq<π‹”ÎÁoáq∫8èΩ⁄ﬁÉ!f…≈ñx˝»£ì˘–ou¨tπœöì˙/a ≠ùe„Ç˝4⁄ß¢vMj‡<ù»eÔ‰ü8˝å/ÖG‚'zèh«óW[:voª§À¡“_Òı1‘ùt˜H–j˜ª(E—Ω1…ˆ»‘‹ŸÖ«6'¿Ôññ∆ƒøü–.áˇ~
+9ú®ù@Ü?Î°Í;4’œ•Ösè¨Ÿå¶/›_t\O$òBxúuìK¢H
+web4hub: Counting objects:   7% (1/13)
+Counting objects:  15% (2/13)
+web4hub: Counting objects:  23% (3/13)
+web4hub: Counting objects:  30% (4/13)
+web4hub: Counting objects:  38% (5/13)
+web4hub: Counting objects:  46% (6/13)
+web4hub: Counting objects:  53% (7/13)
+web4hub: Counting objects:  61% (8/13)
+web4hub: Counting objects:  69% (9/13)
+web4hub: Counting objects:  76% (10/13)
+Counting objects:  84% (11/13)
+web4hub: Counting objects:  92% (12/13)
+web4hub: Counting objects: 100% (13/13)
+web4hub: Counting objects: 100% (13/13), done.
+web4hub: Compressing objects:  11% (1/9)
+Compressing objects:  22% (2/9)
+web4hub: Compressing objects:  33% (3/9)
+web4hub: Compressing objects:  44% (4/9)
+web4hub: Total 12 (delta 4), reused 0 (delta 0), pack-reused 0 (from 0)
+web4hub: Compressing objects:  55% (5/9)
+web4hub: Compressing objects:  66% (6/9)
+web4hub: Compressing objects:  77% (7/9)
+Compressing objects:  88% (8/9)
+Received:
+
+A
+0006†0000
+0
+web4hub: Compressing objects: 100% (9/9)
+web4hub: Compressing objects: 100% (9/9), done.
+web4hub: Total 12 (delta 4), reused 0 (delta 0), pack-reused 0 (from 0)
+SSH: SSH channel opened successfully
+SSH: Executing command: git-upload-pack 'web4hub/workbook.git'
+SSH: Connecting to github.com port 22
+SSH: Socket connected
+SSH: Creating SSH session for github.com:22
+SSH: Starting SSH handshake
+SSH: Received 324 bytes
+SSH: Sending 4 bytes
+SSH: Connecting to github.com port 22
+SSH: Socket connected
+SSH: Creating SSH session for github.com:22
+SSH: Starting SSH handshake
+SSH: SSH handshake complete
+Requesting credentials for git@github.com:web4hub/papermint.git (user: git, allowed: SSH key)
+web4hub: Using SSH key ssh-rsa 4096 2a:81:af:06:e4:f3:d0:24:0f:91:51:3c:99:d1:29:c7
+SSH: Authenticating with SSH key from file for user 'git'
+SSH: SSH handshake complete
+SSH: Authentication successful
+SSH: Opening SSH channel
+Requesting credentials for git@github.com:qubuhuborg/xlsl.git (user: git, allowed: SSH key)
+workbook: Using SSH key ssh-rsa 4096 89:26:f6:13:78:d5:db:2c:39:7a:bf:12:49:93:5c:66
+SSH: Authenticating with SSH key from file for user 'git'
+SSH: SSH channel opened successfully
+SSH: Executing command: git-upload-pack 'web4hub/papermint.git'
+SSH: Authentication successful
+SSH: Opening SSH channel
+SSH: Received 402 bytes
+SSH: Sending 1124 bytes
+SSH: SSH channel opened successfully
+SSH: Executing command: git-upload-pack 'qubuhuborg/xlsl.git'
+SSH: Received 8 bytes
+SSH: Sending 1004 bytes
+SSH: Received 8 bytes
+SSH: Sending 1004 bytes
+SSH: Received 324 bytes
+SSH: Sending 4 bytes
+SSH: Received 8 bytes
+SSH: Sending 1004 bytes
+workbook: Fetch had no new changes.
+SSH: Received 8 bytes
+SSH: Sending 1004 bytes
+SSH: Received 8 bytes
+SSH: Sending 109 bytes
+SSH: Received 8 bytes
+SSH: Received 393 bytes
+web4hub: Enumerating objects: 13, done.
+web4hub: Counting objects:   7% (1/13)
+web4hub: Counting objects:  15% (2/13)
+Counting objects:  23% (3/13)
+Counting objects:  30% (4/13)
+Counting objects:  38% (5/13)
+web4hub: Counting objects:  46% (6/13)
+web4hub: Counting objects:  53% (7/13)
+web4hub: Counting objects:  61% (8/13)
+Counting objects:  69% (9/13)
+Counting objects:  76% (10/13)
+Counting objects:  84% (11/13)
+web4hub: Enumerating objects: 13, done.
+SSH: Received 3948 bytes
+web4hub: Counting objects:  92% (12/13)
+Counting objects: 100% (13/13)
+Counting objects: 100% (13/13), done.
+web4hub: Compressing objects:  14% (1/7)
+Compressing objects:  28% (2/7)
+Compressing objects:  42% (3/7)
+Compressing objects:  57% (4/7)
+web4hub: Compressing objects:  71% (5/7)
+Compressing objects:  85% (6/7)
+Compressing objects: 100% (7/7)
+Compressing objects: 100% (7/7), done.
+web4hub: Total 13 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+web4hub: Counting objects:   7% (1/13)
+web4hub: Counting objects:  15% (2/13)
+Counting objects:  23% (3/13)
+Counting objects:  30% (4/13)
+Counting objects:  38% (5/13)
+web4hub: Counting objects:  46% (6/13)
+web4hub: Counting objects:  53% (7/13)
+web4hub: Counting objects:  61% (8/13)
+Counting objects:  69% (9/13)
+Counting objects:  76% (10/13)
+Counting objects:  84% (11/13)
+web4hub: Counting objects:  92% (12/13)
+Counting objects: 100% (13/13)
+web4hub: Counting objects: 100% (13/13), done.
+Compressing objects:  14% (1/7)
+Compressing objects:  28% (2/7)
+Compressing objects:  42% (3/7)
+Compressing objects:  57% (4/7)
+web4hub: Compressing objects:  71% (5/7)
+Compressing objects:  85% (6/7)
+Compressing objects: 100% (7/7)
+web4hub: Compressing objects: 100% (7/7), done.
+Total 13 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+SSH: Sending 4 bytes
+web4hub: Fetched changes to Xcodebuild and iOSApp_iphonesimulator.xctestrun in 3 commits on origin/main.
+failed to connect to 10.176.140.141: Operation timed out
+Retry after 'failed to connect to 10.176.140.141: Operation timed out' -> NO
